@@ -1,6 +1,22 @@
 = keystorage
 
-Description goes here.
+Simple password storage command.
+
+== Install
+
+   sudo gem install keystrage
+   
+== Usage
+
+   Usage: keystorage [options] command [command options] args...
+       --help                       show this message
+       -f, --file=FILE              file to store password
+
+=== Commands
+
+ * list [group]
+ * set  group name value
+ * get  group name
 
 == Contributing to keystorage
  
