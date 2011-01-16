@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = %q{keystorage}
-  s.version = "0.1.0"
+  s.version = "0.1.1"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Yoshihiro TAKAHARA"]
-  s.date = %q{2011-01-15}
+  s.date = %q{2011-01-16}
   s.description = %q{This is a command to store and manage your passwords.}
   s.email = %q{y.takahara@gmail.com}
   s.executables = ["keystorage", "keystorage.rb"]
@@ -25,6 +25,7 @@ Gem::Specification.new do |s|
     "VERSION",
     "bin/keystorage",
     "bin/keystorage.rb",
+    "keystorage.gemspec",
     "lib/keystorage/cli.rb",
     "lib/keystorage/command/base.rb",
     "lib/keystorage/command/get.rb",
@@ -39,7 +40,7 @@ Gem::Specification.new do |s|
   s.homepage = %q{http://github.com/tumf/keystorage}
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = %q{1.4.1}
+  s.rubygems_version = %q{1.4.2}
   s.summary = %q{Simple password storage command}
   s.test_files = [
     "test/helper.rb",
