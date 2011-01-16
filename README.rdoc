@@ -14,9 +14,9 @@ Simple password storage command.
 
 === Commands
 
- * list [group]
- * set  group name value
- * get  group name
+* list [group]
+* set  group name value
+* get  group name
 
 == Contributing to keystorage
  
