@@ -2,6 +2,6 @@
 # -*- coding: utf-8 -*-
 require 'keystorage/manager'
 module Keystorage
-  DEFAULT_FILE = ENV["HOME"]+"/.keystore"
+  DEFAULT_FILE = ENV["HOME"]+"/.keystorage"
 end
 
