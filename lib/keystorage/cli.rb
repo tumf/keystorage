@@ -1,11 +1,12 @@
 require 'optparse'
+require 'keystorage'
 require 'keystorage/commands'
 
 module Keystorage
   class CLI
     def initialize(argv)
       @options = Hash.new
-      @options[:file] = ENV["HOME"]+"/.keystore"
+      @options[:file] = DEFAULT_FILE
       @argv = argv.clone
       @opt = OptionParser.new
       @opt.banner="Usage: keystorage [options] command [command options] args..."

@@ -2,22 +2,25 @@ require 'yaml'
 require 'openssl'
 
 module Keystorage
-  def list(group=nil)
-    Manager.new.list(group)
-  end
-
-  def set(group,key,value)
-    Manager.new.set(group,key,value)
-  end
-
-  def get(group,name)
-    Manager.new.get(group,name)
+  class << self
+    def list(group=nil,file=nil)
+      Manager.new(file).list(group)
+    end
+    
+    def set(group,key,value,file=nil)
+      Manager.new(file).set(group,key,value)
+    end
+    
+    def get(group,name,file=nil)
+    Manager.new(file).get(group,name)
+    end
   end
 
   class Manager
 
-    def initialize(file)
-      @file = file
+    def initialize(file=nil)
+      @file = DEFAULT_FILE
+      @file = file if file
     end
 
     def list(group=nil)
