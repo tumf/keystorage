@@ -5,7 +5,7 @@
 
 Gem::Specification.new do |s|
   s.name = %q{keystorage}
-  s.version = "0.2.0"
+  s.version = "0.3.0"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Yoshihiro TAKAHARA"]
@@ -26,6 +26,7 @@ Gem::Specification.new do |s|
     "bin/keystorage",
     "bin/keystorage.rb",
     "keystorage.gemspec",
+    "lib/keystorage.rb",
     "lib/keystorage/cli.rb",
     "lib/keystorage/command/base.rb",
     "lib/keystorage/command/get.rb",
