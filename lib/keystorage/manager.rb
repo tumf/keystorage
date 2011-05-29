@@ -34,7 +34,7 @@ module Keystorage
         File.open(@file,'r') do |f|
           data = YAML.load(f)
           return data.keys unless group
-          return data[group].keys
+          return data[group].keys if data[group]
         end
       end
       Hash.new
