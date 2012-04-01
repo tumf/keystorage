@@ -80,9 +80,9 @@ module Keystorage
     def delete(group,name = nil)
       data = all
       if name
-        data[group].delete(name)
+        data[group].delete(name) if data[group]
       else
-        data.delete(group)
+        data.delete(group) if data
       end
       write(data)
     end
