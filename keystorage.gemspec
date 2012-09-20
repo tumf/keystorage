@@ -5,11 +5,11 @@
 
 Gem::Specification.new do |s|
   s.name = "keystorage"
-  s.version = "0.4.8"
+  s.version = "0.4.9"
 
   s.required_rubygems_version = Gem::Requirement.new(">= 0") if s.respond_to? :required_rubygems_version=
   s.authors = ["Yoshihiro TAKAHARA"]
-  s.date = "2012-04-01"
+  s.date = "2012-09-20"
   s.description = "This is a command to store and manage your passwords."
   s.email = "y.takahara@gmail.com"
   s.executables = ["keystorage"]
@@ -18,6 +18,11 @@ Gem::Specification.new do |s|
     "README.rdoc"
   ]
   s.files = [
+    ".c9revisions/lib/keystorage.rb.c9save",
+    ".c9revisions/lib/keystorage/cli.rb.c9save",
+    ".c9revisions/lib/keystorage/command/get.rb.c9save",
+    ".c9revisions/lib/keystorage/commands.rb.c9save",
+    ".c9revisions/lib/keystorage/manager.rb.c9save",
     "Gemfile",
     "LICENSE.txt",
     "README.rdoc",
@@ -40,7 +45,7 @@ Gem::Specification.new do |s|
   s.homepage = "http://github.com/tumf/keystorage"
   s.licenses = ["MIT"]
   s.require_paths = ["lib"]
-  s.rubygems_version = "1.8.21"
+  s.rubygems_version = "1.8.24"
   s.summary = "Simple password storage command"
 
   if s.respond_to? :specification_version then
