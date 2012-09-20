@@ -90,7 +90,7 @@ module Keystorage
     def encode(str,salt="3Qw9EtWE")
       enc = OpenSSL::Cipher::Cipher.new('aes256')
       enc.encrypt.pkcs5_keyivgen(salt)
-      ((enc.update(str) + enc.final).unpack("H*")).to_s
+      ((enc.update(str) + enc.final).unpack("H*")).first.to_s
     end
 
     def decode(str,salt="3Qw9EtWE")
