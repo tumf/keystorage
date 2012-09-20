@@ -1,1 +1,0 @@
-{"ts":1348153194161,"silentsave":true,"restoring":false,"patch":[[{"diffs":[[1,"#!/usr/bin/env ruby\n# -*- coding: utf-8 -*-\nrequire 'keystorage/manager'\nmodule Keystorage\n  DEFAULT_FILE = ENV[\"HOME\"]+\"/.keystorage\"\nend\n\n"]],"start1":0,"start2":0,"length1":0,"length2":140}]],"length":140}
