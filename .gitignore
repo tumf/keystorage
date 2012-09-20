@@ -1,3 +1,4 @@
 pkg/*.gem
+.c9revisions
 Gemfile.lock
 *~
