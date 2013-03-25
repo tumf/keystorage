@@ -4,7 +4,7 @@ Simple password storage command.
 
 == Install
 
-   sudo gem install keystrage
+   gem install keystorage
    
 == Usage
 
