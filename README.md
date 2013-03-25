@@ -5,11 +5,11 @@ Simple password storage.
 
 ## Install
 
-   gem install keystorage
+    gem install keystorage
    
 ## Usage
 
-   Usage: keystorage [options] command [command options] args...
+    Usage: keystorage [options] command [command options] args...
        --help                       show this message
        -f, --file=FILE              file to store password
 
