@@ -8,7 +8,6 @@ source "http://rubygems.org"
 group :development do
   gem "shoulda"
   gem "bundler"
-  gem "jeweler"
+  gem "jeweler", :git =>"git://github.com/emilsoman/jeweler.git"
   gem "simplecov"
-  gem "builder"
 end
