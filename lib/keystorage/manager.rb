@@ -67,7 +67,7 @@ module Keystorage
       data=all
       data = Hash.new unless data
       data[group] = Hash.new unless data.has_key?(group)
-      data[group][key] = encode(value)
+      data[group][key.to_s] = encode(value.to_s)
       write(data)
     end
 
