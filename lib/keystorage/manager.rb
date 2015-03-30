@@ -1,104 +1,60 @@
-require 'yaml'
-require 'openssl'
-
+# coding: utf-8
+require 'keystorage'
 module Keystorage
-  class << self
-    def list(group=nil,file=nil)
-      Manager.new(file).list(group)
-    end
-    
-    def set(group,key,value,file=nil)
-      Manager.new(file).set(group,key,value)
-    end
-    
-    def get(group,name,file=nil)
-      Manager.new(file).get(group,name)
-    end
-
-    def delete(group,name=nil,file=nil)
-      Manager.new(file).delete(group,name)
-    end
-
-  end
-
+  # ks = keystorage::Manager.new(:file =>"",:secret=> "P@ssword")
+  # ks.get("mygroup","mykey") # => "mysecret"
   class Manager
-
-    def initialize(file=nil)
-      @file = DEFAULT_FILE
-      @file = file if file
+    include Keystorage
+    attr_reader :options
+    def initialize options = {}
+      @options = options
     end
 
-    def list(group=nil)
-      data = Hash.new
-      if File::exist?(@file)
-        File.open(@file,'r') do |f|
-          data = YAML.load(f)
-          return data.keys unless group
-          return data[group].keys if data[group]
-        end
-      end
-      Hash.new
+    def groups
+      file.keys.delete_if {|i| i == "@" }
     end
 
-    def get(group,name)
-      raise "missing group" unless group
-      raise "missing name" unless name
-
-      begin
-        File.open(@file,'r') do |f|
-          data=YAML.load(f)
-          raise "missing keystorage" unless data
-          raise "missing group "+group unless data.has_key?(group)
-          raise "missing group "+group+" name "+name unless data[group].has_key?(name)
-
-          return decode(data[group][name])
-        end
-      rescue =>e
-      end
-      false
+    def keys(group)
+      file[group].keys
     end
 
-    def all
-      return YAML.load_file(@file) if File.exist?(@file)
-      Hash.new
+    def get(group,key)
+      raise SecretMissMatch unless valid?
+      decode(file[group][key])
     end
 
     def set(group,key,value)
-      data=all
-      data = Hash.new unless data
-      data[group] = Hash.new unless data.has_key?(group)
-      data[group][key.to_s] = encode(value.to_s)
+      raise RejectGroupName.new("Cannot use '@' for group name.") if group == "@"
+      raise SecretMissMatch unless valid?
+
+      data = file
+      data[group] = {} unless data.has_key?(group)
+      data[group][key] = {} unless data[group].has_key?(key)
+      data[group][key] = encode(value)
       write(data)
+
+      data[group][key]
+    rescue Errno::ENOENT
+      write({})
+      retry
     end
 
-    def write(data)
-      File.open(@file,'w',0600) do |f|
-        YAML.dump(data,f)
-      end
+    def password new_secret
+      raise SecretMissMatch unless valid?
+
+      # update passwords
+      data = file.each { |name,keys|
+        next if name == "@"
+        keys.each { |key,value|
+          keys[key] = encode(decode(value),new_secret)
+        }
+      }
+      # update root group and write to file
+      write root!(new_secret,data)
+    rescue Errno::ENOENT
+      write({})
+      retry
     end
 
-    def delete(group,name = nil)
-      data = all
-      if name
-        data[group].delete(name) if data[group]
-      else
-        data.delete(group) if data
-      end
-      write(data)
-    end
-
-    def encode(str,salt="3Qw9EtWE")
-      enc = OpenSSL::Cipher::Cipher.new('aes256')
-      enc.encrypt.pkcs5_keyivgen(salt)
-      ((enc.update(str) + enc.final).unpack("H*")).first.to_s
-    end
-
-    def decode(str,salt="3Qw9EtWE")
-      dec = OpenSSL::Cipher::Cipher.new('aes256')
-      dec.decrypt.pkcs5_keyivgen(salt)
-      (dec.update(Array.new([str]).pack("H*")) + dec.final)
-    end
   end
-
-
 end
