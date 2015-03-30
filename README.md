@@ -70,5 +70,4 @@ Keystorage::Manager.new(:file=>"/path/to/file",:secret =>"P@ssword").get("mygrou
 
 ## Copyright
 
-Copyright (c) 2011-2013 Yoshihiro TAKAHARA. See LICENSE.txt for further details.
-
+Copyright (c) 2011-2015 Yoshihiro TAKAHARA. See LICENSE.txt for further details.
