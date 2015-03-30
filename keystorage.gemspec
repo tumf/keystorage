@@ -26,6 +26,9 @@ Gem::Specification.new do |s|
   s.rubygems_version = "2.0.3"
   s.summary = "Simple password storage"
 
+  s.add_dependency('thor')
+  
+  s.add_development_dependency('rake')
   s.add_development_dependency('rspec')
   s.add_development_dependency('version')
 end
