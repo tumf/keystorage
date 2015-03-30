@@ -18,7 +18,7 @@ module Keystorage
             case config[:type]
             when :boolean then
               opt.on(config[:aliases],"--#{name.to_s}") { |v| global_options << "--#{name.to_s}"}
-              opt.on(config[:aliases],"--#{name.to_s}") { |v| global_options << "--no-#{name.to_s}"}
+              opt.on(config[:aliases],"--no-#{name.to_s}") { |v| global_options << "--no-#{name.to_s}"}
             when :string then
               opt.on(config[:aliases],"--#{name.to_s}=VALUE") { |v| global_options << "--#{name.to_s}=#{v}"}
             end
