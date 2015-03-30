@@ -3,7 +3,7 @@ describe Keystorage::Manager do
   before {
     @ks = Keystorage::Manager.new
   }
-  subject { @ks.decode(@ks.file["zaif"]["key"]) }
+  subject { @ks.get("mygroup","key") }
   it {
     is_expected.to be ""
   }
