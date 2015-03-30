@@ -1,6 +1,7 @@
 # coding: utf-8
 require 'keystorage'
 require 'keystorage/manager'
+require 'thor'
 require 'optparse'
 
 module Keystorage

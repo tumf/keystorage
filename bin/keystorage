@@ -1,5 +1,4 @@
 #!/usr/bin/env ruby
 $:.unshift(File.join(File.dirname(__FILE__),'..','lib'))
-require 'thor'
 require 'keystorage/cli'
 Keystorage::CLI.start(ARGV)
