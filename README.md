@@ -1,6 +1,11 @@
 keystorage
 ----------
 
+[![Gem Version](https://badge.fury.io/rb/keystorage.svg)](http://badge.fury.io/rb/keystorage)
+[![Build Status](https://travis-ci.org/tumf/keystorage.svg?branch=master)](https://travis-ci.org/tumf/keystorage)
+[![Code Climate](https://codeclimate.com/github/tumf/keystorage/badges/gpa.svg)](https://codeclimate.com/github/tumf/keystorage)
+[![Test Coverage](https://codeclimate.com/github/tumf/keystorage/badges/coverage.svg)](https://codeclimate.com/github/tumf/keystorage)
+
 Simple password storage.
 
 ## Install
