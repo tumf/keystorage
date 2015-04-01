@@ -12,22 +12,22 @@ module Keystorage
       def start(given_args = ARGV, config = {})
         # parse global options: Thor is not support global-options.
         # Like: command global-options subcommand options
-        global_options = []
+        new_global_options = []
         OptionParser.new do |opt|
           @global_options.each { |name,config|
             case config[:type]
             when :boolean then
-              opt.on(config[:aliases],"--#{name.to_s}") { |v| global_options << "--#{name.to_s}"}
-              opt.on(config[:aliases],"--no-#{name.to_s}") { |v| global_options << "--no-#{name.to_s}"}
+              opt.on(config[:aliases],"--#{name.to_s}") { |v| new_global_options << "--#{name.to_s}"}
             when :string then
-              opt.on(config[:aliases],"--#{name.to_s}=VALUE") { |v| global_options << "--#{name.to_s}=#{v}"}
+              opt.on(config[:aliases],"--#{name.to_s}=VALUE") { |v| new_global_options << "--#{name.to_s}=#{v}"}
             end
           }
           opt.parse!(given_args)
         end
-        given_args+=global_options
+        given_args+=new_global_options
         super(given_args,config)
       end
+      attr_reader :global_options
 
       def global_option *params
         @global_options ||= {}
@@ -68,5 +68,10 @@ module Keystorage
       Manager.new(options).password(new_secret)
     end
 
+    desc "exec","execute child process with set envvars"
+    def exec *command
+      #@todo: ask if new_secret == nil
+      Manager.new(options).exec(command)
+    end
   end
 end
