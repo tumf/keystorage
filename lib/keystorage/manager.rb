@@ -73,9 +73,9 @@ module Keystorage
       result
     end
 
-    def sign message,secret=secret
-      raise NoSecret.new("set env KEYSTORAGE_SECRET") unless secret
-      OpenSSL::HMAC.hexdigest('sha512',secret, message)
+    def sign message,_secret=secret
+      raise NoSecret.new("set env KEYSTORAGE_SECRET") unless _secret
+      OpenSSL::HMAC.hexdigest('sha512',_secret, message)
     end
 
     def token
@@ -87,10 +87,10 @@ module Keystorage
       file["@"] || {}
     end
 
-    def root! secret=secret,data=file
+    def root! _secret=secret,data=file
       data["@"] = {}
       data["@"]["token"] = token
-      data["@"]["sig"] = sign(data["@"]["token"],secret)
+      data["@"]["sig"] = sign(data["@"]["token"],_secret)
       data
     end
 
@@ -101,15 +101,15 @@ module Keystorage
       write root! and true
     end
 
-    def encode(str,secret=secret)
+    def encode(str,_secret=secret)
       enc = OpenSSL::Cipher::Cipher.new('aes256')
-      enc.encrypt.pkcs5_keyivgen(secret)
+      enc.encrypt.pkcs5_keyivgen(_secret)
       ((enc.update(str) + enc.final).unpack("H*")).first.to_s
     end
 
-    def decode(str,secret=secret)
+    def decode(str,_secret=secret)
       dec = OpenSSL::Cipher::Cipher.new('aes256')
-      dec.decrypt.pkcs5_keyivgen(secret)
+      dec.decrypt.pkcs5_keyivgen(_secret)
       (dec.update(Array.new([str]).pack("H*")) + dec.final)
     end
 
