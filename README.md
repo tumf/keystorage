@@ -17,6 +17,7 @@ Simple password storage.
 
     -> % keystorage
     Commands:
+      keystorage exec            # execute child process with set envvars
       keystorage get             # Get a encrypted value of the key of the group
       keystorage groups          # List groups
       keystorage help [COMMAND]  # Describe available commands or one specific command
