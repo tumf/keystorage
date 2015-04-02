@@ -24,6 +24,7 @@ Simple password storage.
       keystorage keys            # List keys of the group
       keystorage password        # Update storage secret
       keystorage set             # Set a value of the key of the group
+      keystorage version         # show version info
 
     Options:
       -v, [--verbose], [--no-verbose]

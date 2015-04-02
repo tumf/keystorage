@@ -2,12 +2,13 @@
 require 'keystorage/cli'
 
 describe Keystorage::CLI do
-  describe ".start" do
+  subject { Keystorage::CLI.start(argv) }
 
+  describe ".start" do
     context "unknown global-options are specified" do
       let(:argv) { ['--aaa=myfile','groups'] }
       it "puts options back of subcommand" do
-        expect { Keystorage::CLI.start(argv) }.to raise_error(OptionParser::InvalidOption)
+        expect { subject }.to raise_error(OptionParser::InvalidOption)
       end
     end
 
@@ -15,7 +16,7 @@ describe Keystorage::CLI do
       let(:argv) { ['-f','myfile','groups'] }
       it "puts options back of subcommand" do
         expect(Thor).to receive(:start).with(['groups','--file=myfile'],{}).once
-        Keystorage::CLI.start(argv)
+        subject
       end
     end
 
@@ -23,13 +24,13 @@ describe Keystorage::CLI do
       let(:argv) { ['-v','groups'] }
       it "puts options back of subcommand" do
         expect(Thor).to receive(:start).with(['groups','--verbose'],{}).once
-        Keystorage::CLI.start(argv)
+        subject
       end
     end
     context "boolean-type `--no-verbose` global-options are specified" do
       let(:argv) { ['--no-verbose','groups'] }
       it "puts options back of subcommand" do
-        expect { Keystorage::CLI.start(argv) }.to raise_error(OptionParser::InvalidOption)
+        expect { subject }.to raise_error(OptionParser::InvalidOption)
       end
     end
   end
@@ -49,7 +50,7 @@ describe Keystorage::CLI do
       allow(Keystorage::Manager).to receive_message_chain('new.groups')
                                      .and_return( ["group1","group2","group3"] )
       expect(STDOUT).to receive(:puts).with("group1\ngroup2\ngroup3").once
-      Keystorage::CLI.start(argv)
+      subject
     end
   end
 
@@ -60,7 +61,7 @@ describe Keystorage::CLI do
                                      .and_return( ["key1","key2","key3"] )
 
       expect(STDOUT).to receive(:puts).with("key1\nkey2\nkey3").once
-      Keystorage::CLI.start(argv)
+      subject
     end
   end
 
@@ -71,7 +72,7 @@ describe Keystorage::CLI do
                                      .and_return( ["value"] )
 
       expect(STDOUT).to receive(:puts).with("value").once
-      Keystorage::CLI.start(argv)
+      subject
     end
   end
 
@@ -83,7 +84,7 @@ describe Keystorage::CLI do
                                      .and_return("value")
 
       expect(STDOUT).to receive(:puts).with("value").once
-      Keystorage::CLI.start(argv)
+      subject
     end
   end
 
@@ -92,7 +93,7 @@ describe Keystorage::CLI do
     it "updates secret of all keys in the file" do
       expect(Keystorage::Manager).to receive_message_chain('new.password')
                                       .with('p@ssw0rd')
-      Keystorage::CLI.start(argv)
+      subject
     end
   end
 
@@ -101,9 +102,19 @@ describe Keystorage::CLI do
     it "updates secret of all keys in the file" do
       expect(Keystorage::Manager).to receive_message_chain('new.exec')
                                       .with(['mycommand','arg1','arg2'])
-      Keystorage::CLI.start(argv)
+      subject
     end
   end
 
+  describe "#version" do
+    let(:argv) { ['version'] }
+    let(:ver) {
+      File.read(File.join(File.dirname(__FILE__),'..','..','VERSION')).chomp
+    }
+    it "shows version" do
+      expect(STDOUT).to receive(:puts).with(ver).once
+      subject
+    end
+  end
 
 end
