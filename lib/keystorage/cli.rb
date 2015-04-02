@@ -3,6 +3,7 @@ require 'keystorage'
 require 'keystorage/manager'
 require 'thor'
 require 'optparse'
+require 'version'
 
 module Keystorage
   class CLI < Thor
@@ -73,5 +74,11 @@ module Keystorage
       #@todo: ask if new_secret == nil
       Manager.new(options).exec(command)
     end
+
+    desc "version","show version info"
+    def version
+      puts Version.current
+    end
+
   end
 end

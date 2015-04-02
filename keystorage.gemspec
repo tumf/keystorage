@@ -27,9 +27,9 @@ Gem::Specification.new do |s|
   s.summary = "Simple password storage"
 
   s.add_dependency('thor')
+  s.add_dependency('version')
 
   s.add_development_dependency('rake')
   s.add_development_dependency('rspec')
-  s.add_development_dependency('version')
   s.add_development_dependency('fakefs')
 end
