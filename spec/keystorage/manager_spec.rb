@@ -378,4 +378,6 @@ describe Keystorage::Manager do
     end
 
   end
+
+  after { FakeFS::FileSystem.clear }
 end
