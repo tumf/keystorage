@@ -109,7 +109,7 @@ describe Keystorage::Manager do
       before {
         @manager = Keystorage::Manager.new( {:file=>"hoge",:secret=>"fuga"})
       }
-      it "update password to `new_password`" do
+      it "updates password to `new_password`" do
         FakeFS do
           @manager.set("a","b","c")
           subject
