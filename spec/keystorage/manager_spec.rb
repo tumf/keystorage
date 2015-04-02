@@ -104,6 +104,19 @@ describe Keystorage::Manager do
     let(:new_password) { "zxcvbnm" }
     subject { @manager.password(new_password) }
 
+    context "file not found" do
+      before {
+        @manager = Keystorage::Manager.new( {:file=>"hoge",:secret=>"fuga"})
+      }
+      it "creates new keystorage file" do
+        FakeFS do
+          subject
+          expect(File.exists?("hoge")).to eq true
+          expect(@manager.send(:file).has_key?("@")).to eq true
+        end
+      end
+    end
+
     context "has valid secret" do
 
       before {
