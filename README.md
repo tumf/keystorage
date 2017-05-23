@@ -54,7 +54,7 @@ The value of second level keys are encrypted values.
 ### Load Library
 
 ```
-require 'keystone/manager'
+require 'keystorage/manager'
 ```
 
 ### Use API
